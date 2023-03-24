@@ -1,0 +1,186 @@
+body {
+  background-color: black;
+  max-height: 100px;
+  margin: 0;
+  font-family: 'Bahnschrift', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: rgb(38, 145, 207); */
+  background-image: url("https://i.imgur.com/dIbGTjX.jpg");
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  /* background-color: #cccccc; */
+  text-align: center;
+  /* background-image: linear-gradient(#ff8a00, #e52e71); */
+  height: 66rem;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+div {
+  text-align: center;
+  display: inline-block;
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.main-logo {
+  font-size: 5rem;
+  color: rgb(0, 0, 0);
+  margin-top: 3rem;
+  margin-bottom: 0.2rem;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-logo:hover {
+  color: rgb(0, 163, 0);
+}
+
+.main-desc {
+  margin-top: 0rem;
+  margin-bottom: 5rem;
+  color: white;
+}
+
+article {
+  margin-top: 0%;
+  background-image: linear-gradient(rgba(0, 13, 255, 0.5), rgba(107, 28, 28, 0.5));
+  border-radius: 0.5rem;
+  padding-inline: 7rem;
+  padding-top: 20px;
+  /* margin-left: 50px; */
+  color: white;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+h4 {
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  color: white;
+  display: inline-block;
+  vertical-align: -0.3rem;
+}
+
+a > h4:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.button {
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 800;
+  text-align: center;
+  padding: 16px 14px 18px;
+  /* box-shadow: inset 0 0 0 2px #616467; */
+  background-color: white;
+  height: 48px;
+}
+.button:hover {
+  color: white;
+  background-color: rgb(10, 171, 61);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+input {
+  width: 275px;
+  height: 30px;
+  margin: 1px;
+  border: 2px solid #5b94df;
+  border-radius: 5px;
+  background: white;
+  padding: 5px;
+  font-size: 20px;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+
+.log_link a {
+  text-decoration: none;
+  color:black;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 800;
+  text-align: center;
+  padding: 16px 14px 18px;
+  /* box-shadow: inset 0 0 0 2px #616467; */
+  background-color: rgb(10, 171, 61);
+  height: 48px;
+}
+
+.log_link a:hover {
+  color:rgb(0, 0, 0);
+  background-color: white;
+}
