@@ -63,7 +63,7 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
     if (!fetchedPlaylists && loading === true && products !== null) {
       fetchAllPlaylists();
     }
-  }, [loading, products, playlists, fetchAllPlaylists]);
+  }, [loading, products, playlists, fetchedPlaylists]);
 
   return (
     <>
@@ -92,7 +92,6 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
 
 const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
   const { loading, products } = useFetch(url, headers);
-  const [trackData, setTrackData] = useState([]);
   const [isDownloading, setIsDownloading] = useState(false);  // Add a flag to prevent multiple downloads
 
   function dataToCSV(data) {
