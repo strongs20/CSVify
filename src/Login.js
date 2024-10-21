@@ -16,9 +16,10 @@ const generateRandomString = (length) => {
 function Login() {
   // const classes = useStyles();
 
-  var client_id = '<CLIENT_ID>'; // Your client id
-  var redirect_uri = 'https://csvify.netlify.app/callback/'; // Your redirect uri
-  // var redirect_uri = 'http://localhost:3000/callback/'; // Your redirect uri
+  var client_id = "1e26e3ce62024fc1902dd66df3cf0f08"; // Your client id
+  
+  // var redirect_uri = 'https://csvify.netlify.app/callback/'; // Your redirect uri
+  var redirect_uri = 'https://csvify.netlify.app/'; // Your redirect uri
 
   var stateKey = 'spotify_auth_state';
 
@@ -43,8 +44,8 @@ function Login() {
       <a href={url}>LOGIN WITH SPOTIFY</a>
     </div>
       <footer>
-        <a href="https://samstrong.netlify.app/">
-          <h4 style={{ color: 'black' }}>samstrong.netlify.app</h4>
+        <a href="https://strongs20.github.io/sam-portfolio/">
+          <h4 style={{ color: 'black' }}>Sam Strong</h4>
         </a>
       </footer>
       <br />

@@ -8,11 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: rgb(38, 145, 207); */
-  background-image: url("https://i.imgur.com/dIbGTjX.jpg");
-  background-attachment: fixed;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background: #fff;
   /* background-color: #cccccc; */
   text-align: center;
   /* background-image: linear-gradient(#ff8a00, #e52e71); */
@@ -62,7 +58,7 @@ footer {
 
 article {
   margin-top: 0%;
-  background-image: linear-gradient(rgba(0, 13, 255, 0.5), rgba(107, 28, 28, 0.5));
+  background-image: linear-gradient(rgba(0, 198, 53, 0.7), rgba(28, 107, 32, 0.5));
   border-radius: 0.5rem;
   padding-inline: 7rem;
   padding-top: 20px;

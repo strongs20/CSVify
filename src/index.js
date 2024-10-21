@@ -14,7 +14,7 @@ function Exportify() {
       <div className="app">
         <h1 className="main-logo">CSVify</h1>
         <br></br>
-        <img src="https://i.imgur.com/KElzYZx.png" width="103" height="50" margin-left="100" alt="logo"></img>
+        
         {/* <h1 className="main-desc">
         </h1> */}
         <br></br>

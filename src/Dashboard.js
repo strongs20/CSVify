@@ -16,12 +16,11 @@ function getAccessToken() {
 }
 
 const AccessToken = 'BQCxb7_SqV0lTT9uVanCW5yUY_UdrNIhdXJ0hesJTeJpj4Z4-GDlbW4infGgfJIZK0adGNbvRnmNDkRPsCchHt1O6MFJLChoLHPm7Ymia4aWf3S39iBi8QnuIf1hHe-dzH_87F09TWWiIAGqVh5DF7eG8h0TzZxNmCE49-MJpvlZecLcxSW8Wg7V2swbqxtrHtQ9gm1RVtB5vLOZSQycWpN-YSItZak';
-console.log(AccessToken);
 var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi({
-  clientId: '<CLIENT_ID>',
-  clientSecret: '<CLIENT_SECRET>',
-  redirectUri: 'https://csv.netlify.app/callback/',
+  clientId: "1e26e3ce62024fc1902dd66df3cf0f08",
+  clientSecret: "db1c26f2324e4bf6881b396d0f0326cc",
+  redirectUri: 'https://csvify.netlify.app/',
   accessToken: getAccessToken(),
 });
 
@@ -38,6 +37,7 @@ function downloadCSV(csv, fileName) {
 const Playlists = ({ url, offset, limit, headers, searchVal }) => {
   const { loading, products } = useFetch(url, headers);
   const [playlists, setPlaylists] = useState([]);
+  const [fetchedPlaylists, setFetchedPlaylists] = useState(false);
 
   const fetchAllPlaylists = useCallback(async () => {
     await paginated_fetch(url, offset, headers, products.total).then(
@@ -54,14 +54,14 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
         }
 
         setPlaylists(fetchedData);
-        console.log(fetchedData);
+        setFetchedPlaylists(true);
         //return fetchedData;
       }
     );
   }, [products, headers, offset, url]);
 
   useEffect(() => {
-    if (loading === true && products !== null) {
+    if (!fetchedPlaylists && loading === true && products !== null) {
       fetchAllPlaylists();
     }
   }, [loading, products, playlists, fetchAllPlaylists]);
@@ -93,22 +93,20 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
 
 const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
   const { loading, products } = useFetch(url, headers);
-  const [ trackData, setTrackData ] = useState([]);
+  const [trackData, setTrackData] = useState([]);
+  const [isDownloading, setIsDownloading] = useState(false);  // Add a flag to prevent multiple downloads
 
   function dataToCSV(data) {
     const replacer = (key, value) => (value === null ? '' : value); // specify how you want to handle null values here
     const header = Object.keys(data[0]);
     let csv = data.map((row) =>
-      header
-        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-        .join(',')
+      header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(',')
     );
     csv.unshift(header.join(','));
     csv = csv.join('\r\n');
-    // download the csv
     downloadCSV(csv, name);
   }
-  
+
   async function fetchInfo() {
     const playlistId = url.split('/')[5];
     const tracks_info = [];
@@ -122,14 +120,10 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
         try {
           const data = await spotifyApi.getTrack(trackId);
           const album = await spotifyApi.getAlbum(data.body.album.id);
-          const artists = "";
+          let artists = "";
           for (const artist of data.body.artists) {
-            // dont put comma on the final one
-            if (artist === data.body.artists[data.body.artists.length - 1]) {
-              artists += artist.name;
-            } else {
-              artists += artist.name + ', ';
-            }
+            // don't put a comma on the final one
+            artists += artist.name + (artist !== data.body.artists[data.body.artists.length - 1] ? ', ' : '');
           }
           const song_info = {
             isrc: data.body.external_ids.isrc,
@@ -155,11 +149,15 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
       dataToCSV(tracks_info);
     } catch (err) {
       console.log('Something went wrong!', err);
+    } finally {
+      setIsDownloading(false); // Reset downloading state
     }
   }
 
-
   const download = async () => {
+    if (isDownloading) return;  // Prevent multiple downloads
+    setIsDownloading(true);     // Set downloading state to prevent multiple calls
+
     if (name === null) {
       name = 'Liked Songs';
     }
@@ -176,8 +174,8 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
           <article>
             <h2>{name || 'Liked Songs'}</h2>
             <h4>{(total || products.total) + ' tracks found'}</h4>
-            <button className="button" type="button" onClick={download}>
-              Download
+            <button className="button" type="button" onClick={download} disabled={isDownloading}>
+              {isDownloading ? 'Downloading...' : 'Download'}
             </button>
           </article>
         )}
@@ -186,16 +184,15 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
   );
 };
 
+
 const Dashboard = ({ code }) => {
   const [search, setSearch] = useState("");
   const authBearer = `Bearer ${code}`;
 
   const offset = 0;
   const limit = 50;
-  //const maxSongs = 10000;
 
   const urlPlaylists = 'https://api.spotify.com/v1/me/playlists';
-  // const urlTracks = 'https://api.spotify.com/v1/me/tracks';
 
   const headers = {
     'Content-Type': 'application/json',
@@ -212,16 +209,6 @@ const Dashboard = ({ code }) => {
       setSearch(e.target.value);
       }}></input>
 
-      {/* <Tracks
-        url={urlTracks}
-        offset={offset}
-        limit={limit}
-        headers={headers}
-        name={null}
-        total={null}
-        searchVal={search}
-      ></Tracks> */}
-
       <Playlists
         url={urlPlaylists}
         offset={offset}
@@ -231,28 +218,6 @@ const Dashboard = ({ code }) => {
       ></Playlists>
     </>
   );
-  // }
-  // else {
-  //   return (
-  //     <>
-  //       <input type="text"
-  //       placeholder="Search by keyword"
-  //       onChange={(e) => {
-  //       setSearch(e.target.value);
-  //       }}></input>
-
-  //       <Playlists
-  //         url={urlPlaylists}
-  //         offset={offset}
-  //         limit={limit}
-  //         headers={headers}
-  //         searchVal={search}
-  //       ></Playlists>
-
-  //     </>
-      
-  //   );
-  // }
 };
 
 export default Dashboard;
