@@ -122,21 +122,14 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
             artists += artist.name + (artist !== data.artists[data.artists.length - 1] ? ', ' : '');
           }
           const album_data = await spotifyApi.getAlbum(data.album.id);
+          const artist_data = await spotifyApi.getArtist(data.artists[0].id);
           const song_info = {
-            isrc: data.external_ids.isrc,
-            link: data.external_urls.spotify,
             song_name: data.name,
             artists: artists,
-            song_id: data.id,
-            song_duration: data.duration_ms,
-            song_popularity: data.popularity,
-            song_explicit: data.explicit,
-            song_disc_number: data.disc_number,
-            album_name: data.album.name,
-            album_release_date: data.album.release_date,
-            album_total_tracks: data.album.total_tracks,
-            album_type: data.album.type,
+            link: data.external_urls.spotify,
             label: album_data.body.label,
+            release_date: data.album.release_date,
+            spotify_followers: artist_data.body.followers.total 
           };
           tracks_info.push(song_info);
         } catch {
