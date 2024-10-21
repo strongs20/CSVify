@@ -15,11 +15,10 @@ function getAccessToken() {
   return accessToken;
 }
 
-const AccessToken = 'BQCxb7_SqV0lTT9uVanCW5yUY_UdrNIhdXJ0hesJTeJpj4Z4-GDlbW4infGgfJIZK0adGNbvRnmNDkRPsCchHt1O6MFJLChoLHPm7Ymia4aWf3S39iBi8QnuIf1hHe-dzH_87F09TWWiIAGqVh5DF7eG8h0TzZxNmCE49-MJpvlZecLcxSW8Wg7V2swbqxtrHtQ9gm1RVtB5vLOZSQycWpN-YSItZak';
 var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi({
-  clientId: "1e26e3ce62024fc1902dd66df3cf0f08",
-  clientSecret: "db1c26f2324e4bf6881b396d0f0326cc",
+  clientId: process.env.REACT_APP_CLIENT_ID,
+  clientSecret: process.env.REACT_APP_CLIENT_SECRET,
   redirectUri: 'https://csvify.netlify.app/',
   accessToken: getAccessToken(),
 });

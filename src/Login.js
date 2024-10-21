@@ -16,7 +16,7 @@ const generateRandomString = (length) => {
 function Login() {
   // const classes = useStyles();
 
-  var client_id = "1e26e3ce62024fc1902dd66df3cf0f08"; // Your client id
+  var client_id = process.env.REACT_APP_CLIENT_ID; // Your client id
   
   // var redirect_uri = 'https://csvify.netlify.app/callback/'; // Your redirect uri
   var redirect_uri = 'https://csvify.netlify.app/'; // Your redirect uri
