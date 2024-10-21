@@ -63,7 +63,7 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
     if (!fetchedPlaylists && loading === true && products !== null) {
       fetchAllPlaylists();
     }
-  }, [loading, products, playlists, fetchedPlaylists]);
+  }, [loading, products, playlists, fetchAllPlaylists, fetchedPlaylists]);
 
   return (
     <>
