@@ -139,8 +139,8 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
             label: album_data.body.label,
           };
           tracks_info.push(song_info);
-        } catch (err) {
-          console.log("Failed to fetch song", err);
+        } catch {
+          console.log("Failed to fetch song");
         }
       }
       dataToCSV(tracks_info);
