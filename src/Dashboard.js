@@ -114,34 +114,33 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
       const trackItems = playlist.body.tracks.items;
 
       for (const trackItem of trackItems) {
-        const trackId = trackItem.track.id;
         try {
-          const data = await spotifyApi.getTrack(trackId);
-          const album = await spotifyApi.getAlbum(data.body.album.id);
+          const data = trackItem.track;
           let artists = "";
-          for (const artist of data.body.artists) {
+          for (const artist of data.artists) {
             // don't put a comma on the final one
-            artists += artist.name + (artist !== data.body.artists[data.body.artists.length - 1] ? ', ' : '');
+            artists += artist.name + (artist !== data.artists[data.artists.length - 1] ? ', ' : '');
           }
+          const album_data = await spotifyApi.getAlbum(data.album.id);
           const song_info = {
-            isrc: data.body.external_ids.isrc,
-            link: data.body.external_urls.spotify,
-            song_name: data.body.name,
+            isrc: data.external_ids.isrc,
+            link: data.external_urls.spotify,
+            song_name: data.name,
             artists: artists,
-            song_id: data.body.id,
-            song_duration: data.body.duration_ms,
-            song_popularity: data.body.popularity,
-            song_explicit: data.body.explicit,
-            song_disc_number: data.body.disc_number,
-            album_name: album.body.name,
-            album_release_date: album.body.release_date,
-            album_total_tracks: album.body.total_tracks,
-            album_type: album.body.album_type,
-            label: album.body.label,
+            song_id: data.id,
+            song_duration: data.duration_ms,
+            song_popularity: data.popularity,
+            song_explicit: data.explicit,
+            song_disc_number: data.disc_number,
+            album_name: data.album.name,
+            album_release_date: data.album.release_date,
+            album_total_tracks: data.album.total_tracks,
+            album_type: data.album.type,
+            label: album_data.body.label,
           };
           tracks_info.push(song_info);
         } catch (err) {
-          console.log('Something went wrong with track!', err);
+          console.log("Failed to fetch song", err);
         }
       }
       dataToCSV(tracks_info);
