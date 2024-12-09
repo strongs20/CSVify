@@ -44,11 +44,14 @@ const Playlists = ({ url, offset, limit, headers, searchVal }) => {
         let fetchedData = [];
         for (let chunk of products) {
           chunk.items.map((item) => {
-            return fetchedData.push({
-              name: item.name,
-              href: item.tracks.href,
-              total: item.tracks.total,
-            });
+            if (item?.name) {
+              return fetchedData.push({
+                name: item.name,
+                href: item.tracks.href,
+                total: item.tracks.total,
+              });
+            }
+            return fetchedData;
           });
         }
 
@@ -122,6 +125,7 @@ const Tracks = ({ url, offset, limit, headers, name, total, searchVal }) => {
             artists += artist.name + (artist !== data.artists[data.artists.length - 1] ? ', ' : '');
           }
           const album_data = await spotifyApi.getAlbum(data.album.id);
+          console.log(album_data)
           const artist_data = await spotifyApi.getArtist(data.artists[0].id);
           const song_info = {
             song_name: data.name,
